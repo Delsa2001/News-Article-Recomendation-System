@@ -84,7 +84,7 @@ public class CreateAccountController {
                                 String password) throws SQLException {
         String url = "jdbc:mysql://localhost:3306/Userdatabase";
         String username = "root"; // Replace with your DB username
-        String dbPassword = "admin"; // Replace with your DB password
+        String dbPassword = "admin";
 
         Connection connection = DriverManager.getConnection(url, username, dbPassword);
         String sql = "INSERT INTO Users (name, dob, gender, country, email, password) VALUES (?, ?, ?, ?, ?, ?)";

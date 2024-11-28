@@ -31,6 +31,7 @@ public class AccountSuccessController {
         } catch (IOException e) {
             e.printStackTrace();
 
+
             // Show an error alert if there's an issue loading the FXML file
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");

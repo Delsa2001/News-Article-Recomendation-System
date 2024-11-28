@@ -4,16 +4,18 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cw.HomePageController">
    <children>
-      <Label layoutX="272.0" layoutY="43.0" text="Welcome" />
-      <Label layoutX="61.0" layoutY="104.0" />
-      <Hyperlink layoutX="45.0" layoutY="93.0" text="Recomended Articles" />
+      <Label fx:id="welcomeLabel" layoutX="156.0" layoutY="44.0" text="Welcome">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Hyperlink layoutX="45.0" layoutY="93.0" text="Recommended Articles" />
       <Hyperlink layoutX="44.0" layoutY="258.0" text="Newly Added Articles" />
       <Hyperlink layoutX="44.0" layoutY="412.0" text="Recently Viewed Articles" />
-      <Button layoutX="443.0" layoutY="31.0" mnemonicParsing="false" text="Profle" />
+      <Button layoutX="443.0" layoutY="31.0" mnemonicParsing="false" text="Profile" />
       <Button layoutX="503.0" layoutY="31.0" mnemonicParsing="false" text="Log Out" />
    </children>
 </AnchorPane>

@@ -40,6 +40,7 @@ public class WelcomeController {
             alert.setContentText("Error loading the login screen: " + e.getMessage());
             alert.showAndWait();
         }
+
     }
 
 

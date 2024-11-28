@@ -27,6 +27,7 @@ public class SelectCategoryController {
     private String userName;
     private String userEmail;
 
+
     public void initialize() {
         // Disable the "Next" button by default
         nextButton.setDisable(true);

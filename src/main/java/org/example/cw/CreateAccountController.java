@@ -80,25 +80,26 @@ public class CreateAccountController {
         return password;
     }
 
-    private void saveToDatabase(String name, LocalDate dob, String gender, String country, String email,
-                                String password) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/Userdatabase";
-        String username = "root"; // Replace with your DB username
-        String dbPassword = "admin";
+    private void saveToDatabase(String name, LocalDate dob, String gender, String country, String email, String password) throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/OOPCW"; // Database name is OOPCW
+        String username = "root"; // Default username for MySQL
+        String dbPassword = ""; // Leave the password empty if there is no password set
 
-        Connection connection = DriverManager.getConnection(url, username, dbPassword);
-        String sql = "INSERT INTO Users (name, dob, gender, country, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection connection = DriverManager.getConnection(url, username, dbPassword)) {
+            // SQL query to insert data into the 'users' table
+            String sql = "INSERT INTO users (full_name, date_of_birth, gender, country, email, password) VALUES (?, ?, ?, ?, ?, ?)";
 
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, name);
-        statement.setDate(2, java.sql.Date.valueOf(dob));
-        statement.setString(3, gender);
-        statement.setString(4, country);
-        statement.setString(5, email);
-        statement.setString(6, password);
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, name); // Set full_name
+                statement.setDate(2, java.sql.Date.valueOf(dob)); // Set date_of_birth
+                statement.setString(3, gender); // Set gender
+                statement.setString(4, country); // Set country
+                statement.setString(5, email); // Set email
+                statement.setString(6, password); // Save the plain-text password
 
-        statement.executeUpdate();
-        connection.close();
+                statement.executeUpdate(); // Execute the insert query
+            }
+        }
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
@@ -112,7 +113,7 @@ public class CreateAccountController {
     @FXML
     public void handleSubmitButton(ActionEvent event) {
         try {
-            // Validate inputs (without saving them to the database)
+            // Validate inputs
             String name = validateName(nameField.getText());
             LocalDate dob = validateDOB(dobField.getText());
             String gender = validateGender(genderField.getText());
@@ -120,7 +121,7 @@ public class CreateAccountController {
             String email = validateEmail(emailField.getText());
             String password = validatePasswords(passwordField.getText(), confirmPasswordField.getText());
 
-            // Save to the database only once
+            // Save to the database without hashing
             saveToDatabase(name, dob, gender, country, email, password);
 
             // Redirect to the success page AFTER saving the data
@@ -137,7 +138,7 @@ public class CreateAccountController {
 
     private void redirectToSuccessPage(ActionEvent event) {
         try {
-            // Load AccountSuccess.fxml (No saving done here)
+            // Load AccountSuccess.fxml
             Parent root = FXMLLoader.load(getClass().getResource("AccountSuccess.fxml"));
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
@@ -148,5 +149,4 @@ public class CreateAccountController {
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load Success Page: " + e.getMessage());
         }
     }
-
 }

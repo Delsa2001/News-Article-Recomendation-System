@@ -28,9 +28,10 @@ public class LoginController {
     private Stage stage;
     private Scene scene;
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/Userdatabase";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "admin";
+    // Update these constants to match your phpMyAdmin database configuration
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/OOPCW"; // Replace OOPCW with your database name
+    private static final String DB_USER = "root"; // Default username for phpMyAdmin
+    private static final String DB_PASSWORD = ""; // Default password (leave empty if not set)
 
     @FXML
     public void handleLogin(ActionEvent event) {
@@ -43,14 +44,15 @@ public class LoginController {
         }
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String query = "SELECT name, password FROM users WHERE email = ?";
+            // Update the query to match your table and column names
+            String query = "SELECT full_name, password FROM users WHERE email = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 String storedPassword = resultSet.getString("password");
-                String name = resultSet.getString("name");
+                String name = resultSet.getString("full_name"); // Ensure this matches your column name for the full name
 
                 if (storedPassword.equals(password)) {
                     // Login successful, navigate to Home page

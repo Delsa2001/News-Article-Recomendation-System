@@ -30,13 +30,13 @@
       <Hyperlink layoutX="36.0" layoutY="190.0" text="Read History" />
       <Hyperlink layoutX="34.0" layoutY="215.0" text="Other Categories" />
       <Button layoutX="75.0" layoutY="539.0" mnemonicParsing="false" text="Log Out" />
-      <Hyperlink layoutX="62.0" layoutY="332.0" text="&gt; AI" />
+      <Hyperlink layoutX="62.0" layoutY="332.0" text="&gt; AI" onAction="#onAIHyperlinkClick" />
       <Hyperlink layoutX="60.0" layoutY="249.0" text="&gt; Technology" onAction="#onTechnologyHyperlinkClick"/>
 
-      <Hyperlink layoutX="62.0" layoutY="274.0" text="&gt; Health" />
-      <Hyperlink layoutX="62.0" layoutY="300.0" text="&gt; Sports" />
-      <Hyperlink layoutX="62.0" layoutY="357.0" text="&gt; Agriculture" />
-      <Hyperlink layoutX="62.0" layoutY="382.0" text="&gt; War" />
+      <Hyperlink layoutX="62.0" layoutY="274.0" text="&gt; Health" onAction="#onHealthHyperlinkClick" />
+      <Hyperlink layoutX="62.0" layoutY="300.0" text="&gt; Sports" onAction="#onSportsHyperlinkClick" />
+      <Hyperlink layoutX="62.0" layoutY="357.0" text="&gt; Agriculture" onAction="#onAgricultureHyperlinkClick"/>
+      <Hyperlink layoutX="62.0" layoutY="382.0" text="&gt; War" onAction="#onWarHyperlinkClick"/>
       <ImageView fitHeight="75.0" fitWidth="74.0" layoutX="38.0" layoutY="36.0">
          <image>
             <Image url="@images/profileuser.png" />

@@ -7,15 +7,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginController {
 
@@ -25,100 +27,130 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
-    private Stage stage;
-    private Scene scene;
+    // Database configuration details
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/OOPCW"; // Replace with your DB URL
+    private static final String DB_USER = "root"; // Replace with your DB username
+    private static final String DB_PASSWORD = ""; // Replace with your DB password
 
-    // Update these constants to match your phpMyAdmin database configuration
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/OOPCW"; // Replace OOPCW with your database name
-    private static final String DB_USER = "root"; // Default username for phpMyAdmin
-    private static final String DB_PASSWORD = ""; // Default password (leave empty if not set)
-
-    @FXML
+    /**
+     * Handle the login button click.
+     */
     public void handleLogin(ActionEvent event) {
         String email = emailField.getText();
         String password = passwordField.getText();
 
+        // Make sure email and password are not empty
         if (email.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Login Failed", "Missing Information", "Please enter both email and password.");
+            showAlert("Error", "Email or password cannot be empty.");
             return;
         }
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            // Update the query to match your table and column names
-            String query = "SELECT full_name, password FROM users WHERE email = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, email);
-            ResultSet resultSet = preparedStatement.executeQuery();
+        String query = "SELECT * FROM users WHERE email = ? AND password = ?"; // Use 'id' instead of 'user_id'
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            // Set the parameters
+            statement.setString(1, email);
+            statement.setString(2, password);  // Assuming the password is already hashed
+
+            // Execute the query
+            ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                String storedPassword = resultSet.getString("password");
-                String name = resultSet.getString("full_name"); // Ensure this matches your column name for the full name
+                // Login successful, retrieve the user details
+                int userId = resultSet.getInt("id");  // Corrected to use 'id'
+                String fullName = resultSet.getString("full_name");
 
-                if (storedPassword.equals(password)) {
-                    // Login successful, navigate to Home page
-                    navigateToPage(event, "HomePage.fxml", "Home", name);
-                } else {
-                    showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect Password", "The password you entered is incorrect.");
-                }
+                // Pass the user details to the next page
+                navigateToPage(userId, fullName); // Update with userId
             } else {
-                showAlert(Alert.AlertType.ERROR, "Login Failed", "Account Not Found", "No account found with the provided email.");
+                // Invalid credentials
+                showAlert("Error", "Invalid email or password.");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            showAlert("Error", "An error occurred while connecting to the database.");
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Login Failed", "Database Error", "An error occurred while connecting to the database.");
         }
     }
 
-    private void navigateToPage(ActionEvent event, String fxmlFile, String title, String username) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-        Parent root = loader.load();
 
-        // Pass username to HomePageController
-        HomePageController homePageController = loader.getController();
-        homePageController.setWelcomeMessage(username);
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle(title);
-        stage.show();
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String header, String content) {
-        Alert alert = new Alert(alertType);
+    /**
+     * Show an alert with a given title and message.
+     */
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
         alert.showAndWait();
     }
 
+    /**
+     * Handle creating a new account.
+     */
     @FXML
     public void handleCreateAccountButton(ActionEvent event) {
+        // Transition to the CreateAccount.fxml page
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("CreateAccount.fxml"));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Create an Account");
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            AnchorPane createAccountPage = FXMLLoader.load(getClass().getResource("CreateAccount.fxml"));
+            stage.setScene(new Scene(createAccountPage));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "Page Load Failed", "Unable to load the Create Account page.");
         }
     }
 
+    /**
+     * Handle going back to the welcome page.
+     */
     @FXML
     public void handleBackToWelcome(ActionEvent event) {
+        // Navigate back to the Welcome.fxml page
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Welcome.fxml"));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Welcome");
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            AnchorPane welcomePage = FXMLLoader.load(getClass().getResource("Welcome.fxml"));
+            stage.setScene(new Scene(welcomePage));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "Page Load Failed", "Unable to load the Welcome page.");
         }
     }
+
+
+    private void navigateToPage(int userId, String fullName) {
+        try {
+            // Load the HomePage.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller of the HomePage
+            HomePageController homePageController = loader.getController();
+
+            // Debugging: Check if the userId is correct before passing it
+            System.out.println("Passing User ID to HomePageController: " + userId);
+
+            // Pass the user ID to the HomePageController
+            homePageController.setUserId(userId); // Set the user ID first
+
+            // Set the welcome message on the HomePage with the user's full name
+            homePageController.setWelcomeMessage(fullName); // Set welcome message after setting user ID
+
+            // Get the current stage and navigate to HomePage
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "An error occurred while loading the homepage.");
+        }
+    }
+
+
+
+
+
+
 }

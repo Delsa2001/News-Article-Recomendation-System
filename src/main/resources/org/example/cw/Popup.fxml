@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="300.0" prefWidth="500.0" style="-fx-padding: 20; -fx-background-color: #FAFAFA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cw.PopupController">
+    <!-- Title of the article -->
+    <Label fx:id="titleLabel" layoutX="20.0" layoutY="20.0" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #2E7D32;" />
+
+    <!-- Content of the article -->
+    <Text fx:id="contentText" layoutX="20.0" layoutY="109.0" style="-fx-font-size: 14; -fx-text-fill: #555;" wrappingWidth="460.0" />
+
+    <!-- Close button -->
+    <Label layoutX="20.0" layoutY="260.0" onMouseClicked="#closePopup" style="-fx-font-size: 14; -fx-text-fill: #00796B; -fx-cursor: hand;" text="Close" />
+</AnchorPane>

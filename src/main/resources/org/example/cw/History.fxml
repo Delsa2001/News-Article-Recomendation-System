@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane prefHeight="434.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cw.HistoryController">
+   <children>
+      <Label layoutX="52.0" layoutY="37.0" text="Watched History">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+       <TableView layoutX="47.0" layoutY="100.0" prefHeight="281.0" prefWidth="526.0">
+           <columns>
+               <TableColumn fx:id="articleIdColumn" prefWidth="75.0" text="Article_ID">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="articleId" />
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="categoryColumn" prefWidth="141.6" text="Category">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="category" />
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="articleColumn" prefWidth="308.8" text="Article">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="title" />
+                   </cellValueFactory>
+               </TableColumn>
+           </columns>
+       </TableView>
+      <Hyperlink layoutX="23.0" layoutY="397.0" text="Back" />
+   </children>
+
+</AnchorPane>

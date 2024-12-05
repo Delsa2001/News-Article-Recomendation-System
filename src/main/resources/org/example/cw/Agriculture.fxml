@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="600" prefWidth="800" style="-fx-background-color: #E8F5E9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cw.AgricultureController">
     <!-- Title -->
-    <Label layoutX="280.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #2E7D32; -fx-font-weight: bold;" text="Health Articles" />
+    <Label layoutX="280.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #2E7D32; -fx-font-weight: bold;" text="Agriculture Articles" />
 
     <!-- ScrollPane -->
     <ScrollPane fx:id="articleScrollPane" layoutX="25.0" layoutY="80.0" prefHeight="480.0" prefWidth="750.0" style="-fx-background-color: transparent;">

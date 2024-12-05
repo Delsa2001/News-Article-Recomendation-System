@@ -38,21 +38,28 @@ public class SportsController {
     /**
      * Load articles for the Sports category and display them in the TilePane.
      */
-    public void loadArticles() {
-        articleTilePane.getChildren().clear(); // Clear existing articles
+    public void loadArticles(String category) {
+        System.out.println("Loading articles for category: " + category);
+        articleTilePane.getChildren().clear();
 
-        String query = "SELECT * FROM articles WHERE category_type = 'Sports'";
+        String query = "SELECT * FROM articles WHERE category_type = ?";
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, category);
+            ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int articleId = resultSet.getInt("article_id");
-                String title = resultSet.getString("title");
-                String content = resultSet.getString("article_content");
+                // Declare and initialize the articleId variable
+                int articleId = Integer.parseInt(resultSet.getString("article_id")); // articleId is a String
+                String articleTitle = resultSet.getString("title");
+                String articleContent = resultSet.getString("article_content");
+                String articleCategory = resultSet.getString("category_type");
 
-                // Create an article box and add it to the TilePane
-                VBox articleBox = createArticleBox(articleId, title, content);
+                // Create the article box with the article details
+                VBox articleBox = createArticleBox(articleId, articleTitle, articleContent, articleCategory);
+
+                // Add the article box to the TilePane
                 articleTilePane.getChildren().add(articleBox);
             }
         } catch (SQLException e) {
@@ -63,16 +70,23 @@ public class SportsController {
     /**
      * Create an article box using the Box.fxml template.
      */
-    private VBox createArticleBox(int articleId, String title, String content) {
+    private VBox createArticleBox(int articleId, String title, String content, String category) {
+        System.out.println("Creating article box for article ID: " + articleId);
         try {
+            // Load the Box.fxml to create an article box
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Box.fxml"));
             VBox articleBox = loader.load();
 
+            // Debugging: Track userId being passed to BoxController
+            System.out.println("Passing user ID to BoxController: " + userId);
+
+            // Set the user ID and article details in the BoxController
             BoxController boxController = loader.getController();
-            boxController.setUserId(userId);  // Pass user ID to BoxController
+            boxController.setUserId(userId);  // Make sure the userId is passed correctly
             boxController.setArticleId(articleId);  // Set the article ID
             boxController.setTitle(title);  // Set the article title
             boxController.setContentPreview(content);  // Set the article content preview
+            boxController.setCategory(category);  // Set the article category
 
             return articleBox;
         } catch (IOException e) {
@@ -110,7 +124,7 @@ public class SportsController {
             AnchorPane homePage = loader.load();
 
             HomePageController homePageController = loader.getController();
-            homePageController.setUserId(userId); // Pass user ID back to HomePageController
+            homePageController.setId(userId); // Pass user ID back to HomePageController
             homePageController.setWelcomeMessage("Back!"); // Set a welcome message
 
             Stage stage = (Stage) articleTilePane.getScene().getWindow();

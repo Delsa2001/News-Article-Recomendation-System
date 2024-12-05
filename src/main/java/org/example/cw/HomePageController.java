@@ -6,9 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 
@@ -19,19 +20,17 @@ public class HomePageController {
 
     private int userId; // Store user ID
 
-    /**
-     * Set the welcome message with the user's full name.
-     */
+
     public void setWelcomeMessage(String username) {
         welcomeLabel.setText("Welcome " + username);
-        // Debugging: Check the userId before using it
-        System.out.println("User ID in HomePageController: " + userId);  // Debugging statement
+        System.out.println("User ID in HomePageController: " + userId);
     }
+
 
     /**
      * Set the user ID.
      */
-    public void setUserId(int userId) {
+    public void setId(int userId) {
         // Debugging: Check if userId is set correctly
         System.out.println("Setting User ID in HomePageController: " + userId);
         this.userId = userId;
@@ -65,103 +64,169 @@ public class HomePageController {
         }
     }
 
-    @FXML
-    public void onHealthHyperlinkClick() {
+    public void onHealthHyperlinkClick(ActionEvent event) {
         try {
-            System.out.println("Navigating to Health page with User ID: " + userId);
+            // Debugging: Track when the Technology page is accessed
+            System.out.println("Navigating to health page with User ID: " + userId);
+
+            // Load the Technology.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Health.fxml"));
-            AnchorPane healthPage = loader.load();
+            Parent root = loader.load();
 
-            HealthController healthController = loader.getController();
-            healthController.setUserId(userId); // Pass user ID to the HealthController
-            healthController.loadArticles(); // Load Health articles
+            // Access the TechnologyController and pass the user ID
+            HealthController controller = loader.getController();
+            controller.setUserId(userId);  // Pass the user ID to the TechnologyController
+            controller.loadArticles("Health");  // Load articles for the Technology category
 
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            Scene scene = new Scene(healthPage);
-            stage.setScene(scene);
-            stage.setTitle("Health Articles");
+            // Transition to Technology.fxml
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML
-    public void onAIHyperlinkClick() {
+    public void onAIHyperlinkClick(ActionEvent event) {
         try {
+            // Debugging: Track when the Technology page is accessed
+            System.out.println("Navigating to AI page with User ID: " + userId);
+
+            // Load the Technology.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AI.fxml"));
-            AnchorPane aiPage = loader.load();
+            Parent root = loader.load();
 
-            AIController aiController = loader.getController();
-            aiController.setUserId(userId); // Pass user ID to AIController
-            aiController.loadArticles(); // Load AI articles
+            // Access the TechnologyController and pass the user ID
+            AIController controller = loader.getController();
+            controller.setUserId(userId);  // Pass the user ID to the TechnologyController
+            controller.loadArticles("AI");  // Load articles for the Technology category
 
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            Scene scene = new Scene(aiPage);
-            stage.setScene(scene);
-            stage.setTitle("AI Articles");
+            // Transition to Technology.fxml
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML
-    public void onAgricultureHyperlinkClick() {
+    public void onAgricultureHyperlinkClick(ActionEvent event) {
         try {
+            // Debugging: Track when the Technology page is accessed
+            System.out.println("Navigating to Agriculture page with User ID: " + userId);
+
+            // Load the Technology.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Agriculture.fxml"));
-            AnchorPane agriculturePage = loader.load();
+            Parent root = loader.load();
 
-            AgricultureController agricultureController = loader.getController();
-            agricultureController.setUserId(userId); // Pass user ID to AgricultureController
-            agricultureController.loadArticles(); // Load Agriculture articles
+            // Access the TechnologyController and pass the user ID
+            AgricultureController controller = loader.getController();
+            controller.setUserId(userId);  // Pass the user ID to the TechnologyController
+            controller.loadArticles("Agriculture");  // Load articles for the Technology category
 
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            Scene scene = new Scene(agriculturePage);
-            stage.setScene(scene);
-            stage.setTitle("Agriculture Articles");
+            // Transition to Technology.fxml
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML
-    public void onSportsHyperlinkClick() {
+    public void onSportsHyperlinkClick(ActionEvent event) {
         try {
+            // Debugging: Track when the Technology page is accessed
+            System.out.println("Navigating to Sports page with User ID: " + userId);
+
+            // Load the Technology.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Sports.fxml"));
-            AnchorPane sportsPage = loader.load();
+            Parent root = loader.load();
 
-            SportsController sportsController = loader.getController();
-            sportsController.setUserId(userId); // Pass user ID to SportsController
-            sportsController.loadArticles(); // Load Sports articles
+            // Access the TechnologyController and pass the user ID
+            SportsController controller = loader.getController();
+            controller.setUserId(userId);  // Pass the user ID to the TechnologyController
+            controller.loadArticles("Sports");  // Load articles for the Technology category
 
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            Scene scene = new Scene(sportsPage);
-            stage.setScene(scene);
-            stage.setTitle("Sports Articles");
+            // Transition to Technology.fxml
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void onWarHyperlinkClick(ActionEvent event) {
+        try {
+            // Debugging: Track when the Technology page is accessed
+            System.out.println("Navigating to War page with User ID: " + userId);
+
+            // Load the Technology.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("War.fxml"));
+            Parent root = loader.load();
+
+            // Access the TechnologyController and pass the user ID
+            WarController controller = loader.getController();
+            controller.setUserId(userId);  // Pass the user ID to the TechnologyController
+            controller.loadArticles("War");  // Load articles for the Technology category
+
+            // Transition to Technology.fxml
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void onRecommendHyperlinkClick(ActionEvent event) {
+        try {
+            // Debugging: Track when the Recommend page is accessed
+            System.out.println("Navigating to Recommend page with User ID: " + userId);
+
+            // Load the Recommend.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Recommend.fxml"));
+            Parent root = loader.load();
+
+            // Access the RecommendController and pass the user ID
+            RecommendController controller = loader.getController();
+            controller.setUserId(userId);  // Pass the user ID to the RecommendController
+
+            // Transition to Recommend.fxml
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error loading the Recommend page");
             e.printStackTrace();
         }
     }
 
 
     @FXML
-    public void onWarHyperlinkClick() {
+    private void onReadHistoryClick(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("War.fxml"));
-            AnchorPane sportsPage = loader.load();
 
-            WarController warController = loader.getController();
-            warController.setUserId(userId); // Pass user ID to SportsController
-            warController.loadArticles(); // Load Sports articles
+            System.out.println("Navigating to history page with User ID: " + userId);
+            // Load the FXML file for the History page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("History.fxml"));
+            Parent root = loader.load();
 
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            Scene scene = new Scene(sportsPage);
+            // Get the controller for the History page
+            HistoryController historyController = loader.getController();
+            historyController.setUserId(userId); // Pass the user ID
+
+            // Create a new scene and set it on the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Sports Articles");
-        } catch (IOException e) {
+            stage.show();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 
 

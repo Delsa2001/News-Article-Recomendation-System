@@ -132,7 +132,7 @@ public class TechnologyController {
             AnchorPane homePage = loader.load();
 
             HomePageController homePageController = loader.getController();
-            homePageController.setUserId(userId); // Pass user ID back to HomePageController
+            homePageController.setId(userId); // Pass user ID back to HomePageController
             homePageController.setWelcomeMessage("Back!"); // Set a welcome message
 
             Stage stage = (Stage) articleTilePane.getScene().getWindow();

@@ -132,7 +132,7 @@ public class LoginController {
             System.out.println("Passing User ID to HomePageController: " + userId);
 
             // Pass the user ID to the HomePageController
-            homePageController.setUserId(userId); // Set the user ID first
+            homePageController.setId(userId); // Set the user ID first
 
             // Set the welcome message on the HomePage with the user's full name
             homePageController.setWelcomeMessage(fullName); // Set welcome message after setting user ID

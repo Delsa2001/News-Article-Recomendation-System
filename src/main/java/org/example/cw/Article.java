@@ -1,7 +1,7 @@
 package org.example.cw;
 
 public class Article {
-    private int article_id;  // Changed from int to String to match DB
+    private int article_id;
     private String title;
     private String article_content;
     private String keywords;
@@ -15,8 +15,7 @@ public class Article {
         this.category_type = category;
     }
 
-    // Update getter to return String instead of int
-    public int getId() {
+    public int getArticleId() {
         return article_id;
     }
 

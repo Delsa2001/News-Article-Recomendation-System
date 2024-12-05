@@ -3,11 +3,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.TilePane?>
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cw.HomePageController">
    <children>
       <AnchorPane layoutX="-7.0" prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: black;">
@@ -26,23 +28,31 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Hyperlink layoutX="34.0" layoutY="165.0" text="Recommended Articles" />
-      <Hyperlink layoutX="36.0" layoutY="190.0" text="Read History" />
+      <Hyperlink layoutX="34.0" layoutY="165.0" text="Recommended Articles" onAction="#onRecommendHyperlinkClick"/>
+      <Hyperlink layoutX="36.0" layoutY="190.0" text="Read History" onAction="#onReadHistoryClick"/>
       <Hyperlink layoutX="34.0" layoutY="215.0" text="Other Categories" />
       <Button layoutX="75.0" layoutY="539.0" mnemonicParsing="false" text="Log Out" />
-      <Hyperlink layoutX="62.0" layoutY="332.0" text="&gt; AI" onAction="#onAIHyperlinkClick" />
-      <Hyperlink layoutX="60.0" layoutY="249.0" text="&gt; Technology" onAction="#onTechnologyHyperlinkClick"/>
+      <Hyperlink layoutX="62.0" layoutY="332.0" onAction="#onAIHyperlinkClick" text="&gt; AI" />
+      <Hyperlink layoutX="60.0" layoutY="249.0" onAction="#onTechnologyHyperlinkClick" text="&gt; Technology" />
 
-      <Hyperlink layoutX="62.0" layoutY="274.0" text="&gt; Health" onAction="#onHealthHyperlinkClick" />
-      <Hyperlink layoutX="62.0" layoutY="300.0" text="&gt; Sports" onAction="#onSportsHyperlinkClick" />
-      <Hyperlink layoutX="62.0" layoutY="357.0" text="&gt; Agriculture" onAction="#onAgricultureHyperlinkClick"/>
-      <Hyperlink layoutX="62.0" layoutY="382.0" text="&gt; War" onAction="#onWarHyperlinkClick"/>
+      <Hyperlink layoutX="62.0" layoutY="274.0" onAction="#onHealthHyperlinkClick" text="&gt; Health" />
+      <Hyperlink layoutX="62.0" layoutY="300.0" onAction="#onSportsHyperlinkClick" text="&gt; Sports" />
+      <Hyperlink layoutX="62.0" layoutY="357.0" onAction="#onAgricultureHyperlinkClick" text="&gt; Agriculture" />
+      <Hyperlink layoutX="62.0" layoutY="382.0" onAction="#onWarHyperlinkClick" text="&gt; War" />
       <ImageView fitHeight="75.0" fitWidth="74.0" layoutX="38.0" layoutY="36.0">
          <image>
             <Image url="@images/profileuser.png" />
          </image>
       </ImageView>
       <Label layoutX="41.0" layoutY="120.0" text="User Name" textFill="#2efc00" />
-      <Label layoutX="42.0" layoutY="138.0" text="User Email" />
+      <Label layoutX="42.0" layoutY="138.0" text="User Email" textFill="#2efc00" />
+      <ScrollPane layoutX="212.0" layoutY="85.0" prefHeight="453.0" prefWidth="540.0">
+         <content>
+            <TilePane fx:id="articleTilePane" hgap="10" vgap="10" prefColumns="3">
+               <!-- Articles will be added dynamically here -->
+            </TilePane>
+         </content>
+      </ScrollPane>
+
    </children>
 </AnchorPane>

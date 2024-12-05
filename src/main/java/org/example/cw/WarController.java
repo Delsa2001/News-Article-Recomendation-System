@@ -38,19 +38,20 @@ public class WarController {
     /**
      * Load articles for the War category and display them in the TilePane.
      */
-    public void loadArticles() {
+    public void loadArticles(String category) {
+        System.out.println("Loading articles for category: " + category);
         articleTilePane.getChildren().clear();
 
         String query = "SELECT * FROM articles WHERE category_type = ?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
-            statement.setString(1, "War");
+            statement.setString(1, category);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 // Declare and initialize the articleId variable
-                int articleId = Integer.parseInt(resultSet.getString("article_id"));
+                int articleId = Integer.parseInt(resultSet.getString("article_id")); // articleId is a String
                 String articleTitle = resultSet.getString("title");
                 String articleContent = resultSet.getString("article_content");
                 String articleCategory = resultSet.getString("category_type");
@@ -70,12 +71,16 @@ public class WarController {
      * Create an article box using the Box.fxml template.
      */
     private VBox createArticleBox(int articleId, String title, String content, String category) {
+        System.out.println("Creating article box for article ID: " + articleId);
         try {
             // Load the Box.fxml to create an article box
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Box.fxml"));
             VBox articleBox = loader.load();
 
-            // Set the user ID in the BoxController
+            // Debugging: Track userId being passed to BoxController
+            System.out.println("Passing user ID to BoxController: " + userId);
+
+            // Set the user ID and article details in the BoxController
             BoxController boxController = loader.getController();
             boxController.setUserId(userId);  // Make sure the userId is passed correctly
             boxController.setArticleId(articleId);  // Set the article ID
@@ -119,7 +124,7 @@ public class WarController {
             AnchorPane homePage = loader.load();
 
             HomePageController homePageController = loader.getController();
-            homePageController.setUserId(userId); // Pass user ID back to HomePageController
+            homePageController.setId(userId); // Pass user ID back to HomePageController
             homePageController.setWelcomeMessage("Back!"); // Set a welcome message
 
             Stage stage = (Stage) articleTilePane.getScene().getWindow();

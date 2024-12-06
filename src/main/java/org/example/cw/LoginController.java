@@ -21,6 +21,8 @@ import java.sql.SQLException;
 
 public class LoginController {
 
+    private Parent root;
+
     @FXML
     private TextField emailField;
 
@@ -61,9 +63,19 @@ public class LoginController {
                 // Login successful, retrieve the user details
                 int userId = resultSet.getInt("id");  // Corrected to use 'id'
                 String fullName = resultSet.getString("full_name");
+                int role = resultSet.getInt("role");  // Get the role of the user
+
+                // Debugging: Check role of the user
+                System.out.println("User Role: " + role);
 
                 // Pass the user details to the next page
-                navigateToPage(userId, fullName); // Update with userId
+                if (role == 1) {
+                    // Admin user, navigate to Admin panel or special admin home page
+                    navigateToAdminPage(userId, fullName);
+                } else {
+                    // Regular user, navigate to regular home page
+                    navigateToPage(userId, fullName);
+                }
             } else {
                 // Invalid credentials
                 showAlert("Error", "Invalid email or password.");
@@ -73,6 +85,30 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
+    private void navigateToAdminPage(int userId, String fullName) {
+        try {
+            // Load the AdminPanel.fxml (Create this FXML page for admins)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminPanel.fxml"));
+            Parent root = loader.load(); // Make sure to load the root before accessing the controller
+
+            // Get the controller of the AdminPanel
+            AdminPanelController adminPanelController = loader.getController();
+
+            // Pass the user ID and full name to the AdminPanelController
+            adminPanelController.setId(userId);
+            adminPanelController.setWelcomeMessage(fullName);
+
+            // Get the current stage and navigate to AdminPanel
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     /**

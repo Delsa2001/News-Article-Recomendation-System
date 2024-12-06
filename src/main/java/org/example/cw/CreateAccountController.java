@@ -96,6 +96,7 @@ public class CreateAccountController {
                 statement.setString(4, country); // Set country
                 statement.setString(5, email); // Set email
                 statement.setString(6, password); // Save the plain-text password
+                statement.setInt(7, 0); // Assign the default role "0" for regular users
 
                 statement.executeUpdate(); // Execute the insert query
             }

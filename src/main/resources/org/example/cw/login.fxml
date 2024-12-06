@@ -7,23 +7,36 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cw.LoginController">
+<?import javafx.scene.effect.DropShadow?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cw.LoginController" style="-fx-background-color: linear-gradient(to bottom right, #1c2b36, #354457); -fx-background-radius: 15px;">
    <children>
       <!-- Title Label -->
-      <Label layoutX="200.0" layoutY="50.0" prefHeight="74.0" prefWidth="200.0" style="-fx-font-size: 50; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Login" />
+      <Label layoutX="200.0" layoutY="50.0" prefHeight="74.0" prefWidth="200.0" style="-fx-font-size: 50; -fx-font-weight: bold; -fx-text-fill: #ecf0f1;" text="Login" />
 
       <!-- Email Label and TextField -->
-      <Label layoutX="87.0" layoutY="140.0" style="-fx-font-size: 14; -fx-text-fill: #34495e;" text="Email" />
-      <TextField fx:id="emailField" layoutX="87.0" layoutY="175.0" prefHeight="30.0" prefWidth="365.0" promptText="Enter your email" style="-fx-font-size: 14; -fx-padding: 5;" />
+      <Label layoutX="87.0" layoutY="140.0" style="-fx-font-size: 14; -fx-text-fill: #ecf0f1;" text="Email" />
+      <TextField fx:id="emailField" layoutX="87.0" layoutY="175.0" prefHeight="30.0" prefWidth="365.0" promptText="Enter your email" style="-fx-font-size: 14; -fx-padding: 5; -fx-background-color: #34495e; -fx-text-fill: white;" />
 
       <!-- Password Label and PasswordField -->
-      <Label layoutX="87.0" layoutY="217.0" style="-fx-font-size: 14; -fx-text-fill: #34495e;" text="Password" />
-      <PasswordField fx:id="passwordField" layoutX="87.0" layoutY="235.0" prefHeight="30.0" prefWidth="365.0" promptText="Enter your password" style="-fx-font-size: 14; -fx-padding: 5;" />
+      <Label layoutX="87.0" layoutY="217.0" style="-fx-font-size: 14; -fx-text-fill: #ecf0f1;" text="Password" />
+      <PasswordField fx:id="passwordField" layoutX="87.0" layoutY="235.0" prefHeight="30.0" prefWidth="365.0" promptText="Enter your password" style="-fx-font-size: 14; -fx-padding: 5; -fx-background-color: #34495e; -fx-text-fill: white;" />
 
-      <!-- Buttons -->
-      <Button fx:id="loginButton" onAction="#handleLogin" layoutX="90.0" layoutY="300.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="116.0" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16; -fx-padding: 10;" text="Login" />
-      <Button fx:id="createAccountButton" layoutX="234.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleCreateAccountButton" prefHeight="46.0" prefWidth="176.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 16; -fx-padding: 10;" text="Create an Account" />
-      <Hyperlink fx:id="backHyperlink" layoutX="31.0" layoutY="363.0" onAction="#handleBackToWelcome" text="Back" />
+      <!-- Login Button -->
+      <Button fx:id="loginButton" onAction="#handleLogin" layoutX="90.0" layoutY="300.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="116.0" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16; -fx-padding: 10; -fx-background-radius: 25px; -fx-border-radius: 25px; -fx-border-color: #2980b9; -fx-border-width: 2px;" text="Login">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="white" radius="10" />
+         </effect>
+      </Button>
+
+      <!-- Create Account Button -->
+      <Button fx:id="createAccountButton" layoutX="234.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleCreateAccountButton" prefHeight="46.0" prefWidth="176.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 16; -fx-padding: 10; -fx-background-radius: 25px; -fx-border-radius: 25px; -fx-border-color: #27ae60; -fx-border-width: 2px;" text="Create an Account">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="white" radius="10" />
+         </effect>
+      </Button>
+
+      <!-- Back Hyperlink -->
+      <Hyperlink fx:id="backHyperlink" layoutX="31.0" layoutY="363.0" onAction="#handleBackToWelcome" text="Back" style="-fx-font-size: 14; -fx-text-fill: #ecf0f1; -fx-text-decoration: underline;" />
 
    </children>
 </AnchorPane>

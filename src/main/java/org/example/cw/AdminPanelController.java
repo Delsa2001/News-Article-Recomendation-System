@@ -6,15 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-
-
 import java.io.IOException;
 
-public class HomePageController {
+public class AdminPanelController {
 
     private Stage stage;
     private Scene scene;
@@ -42,7 +39,6 @@ public class HomePageController {
         welcomeLabel.setText("Welcome\n" + username);  // \n adds a line break
         System.out.println("User ID in HomePageController: " + userId);
     }
-
 
 
     /**
@@ -246,6 +242,33 @@ public class HomePageController {
         }
     }
 
+    @FXML
+    private void onPrivacyButtonClick(ActionEvent event) {
+        try {
+            // Debugging: Track when the Privacy page is accessed
+            System.out.println("Navigating to Privacy page with User ID: " + userId);
+
+            // Load the Privacy.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminPrivacy.fxml"));
+            Parent root = loader.load();
+
+            // Access the PrivacyController and pass the user ID (if necessary)
+            AdminPrivacyController controller = loader.getController();
+            controller.setUserId(userId);  // Pass the user ID to the PrivacyController
+
+            // Transition to Privacy.fxml
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error loading the Privacy page");
+            e.printStackTrace();
+        }
+    }
+
+
+
+
     public void handleLogout(ActionEvent event) {
         try {
             // Load the Login.fxml file
@@ -264,4 +287,3 @@ public class HomePageController {
 
 
 }
-

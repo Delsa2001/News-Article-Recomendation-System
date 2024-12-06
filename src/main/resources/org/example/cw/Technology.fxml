@@ -6,16 +6,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.TilePane?>
 
-<AnchorPane prefHeight="600" prefWidth="800" style="-fx-background-color: #E8F5E9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cw.TechnologyController">
+<AnchorPane prefHeight="600" prefWidth="800" style="-fx-background-color: linear-gradient(to bottom, #1a1a1a, #4caf50);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cw.TechnologyController">
     <!-- Title -->
-    <Label layoutX="280.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #2E7D32; -fx-font-weight: bold;" text="Technology Articles" />
+    <Label layoutX="280.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #00FF00; -fx-font-weight: bold; -fx-effect: dropshadow(three-pass-box, #00FF00, 10, 0, 0, 0);" text="Technology Articles" />
 
     <!-- ScrollPane -->
     <ScrollPane fx:id="articleScrollPane" layoutX="25.0" layoutY="80.0" prefHeight="480.0" prefWidth="750.0" style="-fx-background-color: transparent;">
         <!-- TilePane inside ScrollPane -->
-        <TilePane fx:id="articleTilePane" alignment="CENTER" hgap="10" prefColumns="3" style="-fx-padding: 10;" vgap="10">
+        <TilePane fx:id="articleTilePane" alignment="CENTER" hgap="10" prefColumns="3" style="-fx-padding: 10; -fx-background-color: transparent;" vgap="10">
             <!-- Articles will be dynamically added here -->
         </TilePane>
     </ScrollPane>
-    <Hyperlink layoutX="40.0" layoutY="560.0" text="Back" onAction="#onBackToHomeClick"/>
+
+    <!-- Back Button with futuristic effect -->
+    <Hyperlink layoutX="40.0" layoutY="560.0" text="Back" onAction="#onBackToHomeClick" style="-fx-font-size: 16px; -fx-text-fill: #00FF00; -fx-font-weight: bold; -fx-background-color: transparent; -fx-border-color: #00FF00; -fx-border-width: 1px; -fx-padding: 5px; -fx-effect: dropshadow(three-pass-box, #00FF00, 5, 0, 0, 0);" />
+
 </AnchorPane>

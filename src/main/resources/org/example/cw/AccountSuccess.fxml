@@ -7,23 +7,27 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cw.AccountSuccessController">
     <children>
-        <!-- Title Label -->
+        <!-- Title Label with bold font and green color -->
         <Label layoutX="19.0" layoutY="92.0" style="-fx-font-size: 40; -fx-font-weight: bold; -fx-text-fill: #27ae60;" text="Account Created Successfully!">
-         <font>
-            <Font name="Bodoni MT Bold" size="40" />
-         </font></Label>
+            <font>
+                <Font name="Bodoni MT Bold" size="40" />
+            </font>
+        </Label>
 
-        <!-- Next Button -->
+        <!-- Next Button with blue background and white text -->
         <Button fx:id="nextButton" layoutX="230.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleNextButtonAction" prefHeight="46.0" prefWidth="140.0" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16; -fx-padding: 10;" text="Next" />
-      <Label layoutX="131.0" layoutY="150.0" text="Your account has been successfully created.">
-         <font>
-            <Font name="Arial" size="17.0" />
-         </font>
-      </Label>
-      <Label layoutX="144.0" layoutY="180.0" text="You can now proceed to the Home Page.">
-         <font>
-            <Font name="Arial" size="17.0" />
-         </font>
-      </Label>
+
+        <!-- Description Labels with Arial font -->
+        <Label layoutX="131.0" layoutY="150.0" text="Your account has been successfully created.">
+            <font>
+                <Font name="Arial" size="17.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="144.0" layoutY="180.0" text="You can now proceed to the Home Page.">
+            <font>
+                <Font name="Arial" size="17.0" />
+            </font>
+        </Label>
     </children>
 </AnchorPane>
